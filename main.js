@@ -1,20 +1,22 @@
 const { Chess } = require("chess.js");
-var fens = [
-{
-    move:"",
-    fen:""
-}];
+let fens = [];
 const chess=new Chess(); //here we will load our pgn
-const chessFEN= new Chess(); //with this one we work each move in order to get the fens
 const loaded = chess.load_pgn('1. e4 e5 2. Nf3 Nc6 3. Bc4 Bc5 {giuoco piano} *');
-
-console.log(loaded); // succesfully load the pgn
+let GameLength = chess.history();
+console.log(loaded); // succesfully load the pgn , must return true
 console.log(chess.history()); //see the moves in array format
 
-for(var i=0 ; i < chess.history().length; i++)
-{
-    chessFEN.move(chess.history()[i]);
-    fens.push(chess.history()[i].toString(),chessFEN.fen().toString());
-}
-console.log(fens);
+while (chess.undo()) {
+    chess.undo()
+  }
 
+  for (let i=0 ; i<GameLength.length;i++)
+  {
+      chess.move(GameLength[i]);
+    //   GameDetails = [i+"."+GameLength[i].toString() , chess.fen().toString()];
+    //   fens.push(GameDetails);
+      fens.push({move: i+"."+ GameLength[i].toString(), fen:chess.fen().toString()})
+  }
+
+console.log(GameDetails);
+console.log(fens);
