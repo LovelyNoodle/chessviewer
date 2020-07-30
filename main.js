@@ -16,8 +16,7 @@ while (chess.undo()) {
   for (let i=0 ; i<GameLength.length;i++)
   {
       chess.move(GameLength[i]);
-      fens.push({move: i+"."+ GameLength[i].toString(), fen:chess.fen().toString()})
+      fens.push({move: i+"."+ GameLength[i].toString(), fen:chess.fen().toString(),comment:chess.get_comment()|| 'NaN'})
   }
 
-console.log(GameDetails);
 console.log(fens);
