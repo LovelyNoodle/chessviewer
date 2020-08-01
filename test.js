@@ -1,7 +1,7 @@
 const chessviewer = require('./main');
 const expect = require('chai').expect;
 
-describe.only('basic examples', function () {
+describe.only('basic examples', () => {
   it('basic PGN with one move', () => {
     // Arrange
     const pgn = '1. e4';
@@ -33,7 +33,7 @@ describe.only('basic examples', function () {
   });
 });
 
-describe('invalid PGN', function () {
+describe('invalid PGN', () => {
   it('first move is invalid in the PGN', () => {
     // Arrange
     const pgn = '1. e5';
@@ -46,7 +46,7 @@ describe('invalid PGN', function () {
   });
 });
 
-describe('with comments', function () {
+describe('with comments', () => {
   it('comment after the first move', () => {
     // Arrange
     const pgn = '1. e4 {one of the most popular openings for white}';
@@ -67,7 +67,7 @@ describe('with comments', function () {
   });
 });
 
-describe('with special symbols, also called NAGs', function () {
+describe('with special symbols, also called NAGs', () => {
   it('"good move" NAG after the first move', () => {
     // Arrange
     const pgn = '1. e4 $1';
@@ -93,7 +93,7 @@ describe('with special symbols, also called NAGs', function () {
   });
 });
 
-describe('with shapes', function () {
+describe('with shapes', () => {
   it('e4 field with green highlight', () => {
     // Arrange
     const pgn = '1. e4 {[%csl Ge4]}';
@@ -132,10 +132,10 @@ describe('with shapes', function () {
   });
 });
 
-describe('with variations', function () {
+describe('with variations', () => {
   // test only basic functionality + variations
 });
 
-describe('everything put together', function () {
+describe('everything put together', () => {
   // test everything
 });
