@@ -67,32 +67,6 @@ describe('with comments', () => {
   });
 });
 
-describe('with special symbols, also called NAGs', () => {
-  it('"good move" NAG after the first move', () => {
-    // Arrange
-    const pgn = '1. e4 $1';
-
-    // Act
-    const moments = chessviewer(pgn);
-
-    // Assert
-    expect(moments[0].move).to.equal('e4');
-    expect(moments[0].nag).to.equal('!');
-  });
-
-  it('unknown NAG after the first move', () => {
-    // Arrange
-    const pgn = '1. e4 $111';
-
-    // Act
-    const moments = chessviewer(pgn);
-
-    // Assert
-    expect(moments[0].move).to.equal('e4');
-    expect(moments[0].nag).to.equal('');
-  });
-});
-
 describe('with shapes', () => {
   it('e4 field with green highlight', () => {
     // Arrange
