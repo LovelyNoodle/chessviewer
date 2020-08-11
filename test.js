@@ -1,7 +1,7 @@
 const chessviewer = require('./main');
 const expect = require('chai').expect;
 
-describe.only('basic examples', () => {
+describe('basic examples', () => {
   it('basic PGN with one move', () => {
     // Arrange
     const pgn = '1. e4';
@@ -53,21 +53,38 @@ describe('with comments', () => {
 
     // Act
     const moments = chessviewer(pgn);
-
+    console.log(moments);
     // Assert
-    expect(moments[0].move).to.equal('e4');
-    expect(moments[0].comment).to.equal(
+    expect(moments[1].move).to.equal('e4');
+    expect(moments[1].comment).to.equal(
       'one of the most popular openings for white'
     );
   });
 
   it('comment before the first move', () => {
-    // TODO: the first moment should be the starting position
-    // and eventually a comment
+    // Arrange
+    const pgn ='{Test} 1.e4';
+
+    //Act
+    const moments = chessviewer(pgn);
+
+    //Assert
+    expect(moments[0].comment).to.equal('Test');
+    expect(moments[1].move).to.equal('e4');
   });
 });
 
-describe('with shapes', () => {
+describe.only('with shapes', () => {
+  it('returns empty when no shapes are present in a comment', () => {
+    // Arrange
+    const pgn = '1. e4 {no comments here} *';
+
+    // Act
+    const moments = chessviewer(pgn);
+
+    // Assert
+    expect(moments[1].shapes.length).to.equal(0);
+  })
   it('e4 field with green highlight', () => {
     // Arrange
     const pgn = '1. e4 {[%csl Ge4]}';
@@ -76,8 +93,8 @@ describe('with shapes', () => {
     const moments = chessviewer(pgn);
 
     // Assert
-    const e4 = { brush: 'G', orig: 'e4' };
-    expect(moments[0].shapes).to.equal([e4]);
+    expect(moments[1].shapes[0].brush).to.equal('green');
+    expect(moments[1].shapes[0].orig).to.equal('e4');
   });
 
   it('d5 & f5 fields with yellow highlight', () => {
@@ -88,9 +105,10 @@ describe('with shapes', () => {
     const moments = chessviewer(pgn);
 
     // Assert
-    const d5 = { brush: 'Y', orig: 'd5' };
-    const f5 = { brush: 'Y', orig: 'f5' };
-    expect(moments[0].shapes).to.equal([d5, f5]);
+    expect(moments[1].shapes[0].brush).to.equal('yellow');
+    expect(moments[1].shapes[1].brush).to.equal('yellow');
+    expect(moments[1].shapes[0].orig).to.equal('d5');
+    expect(moments[1].shapes[1].orig).to.equal('f5');
   });
 
   it('d1-h5 diagonal with red highlight', () => {
@@ -101,8 +119,9 @@ describe('with shapes', () => {
     const moments = chessviewer(pgn);
 
     // Assert
-    const d1h5 = { brush: 'R', orig: 'd5', dest: 'h5' };
-    expect(moments[0].shapes).to.equal([d1h5]);
+    expect(moments[1].shapes[0].brush).to.equal("red");
+    expect(moments[1].shapes[0].orig).to.equal('d1');
+    expect(moments[1].shapes[0].dest).to.equal('h5');
   });
 });
 
