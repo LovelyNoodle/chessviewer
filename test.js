@@ -34,7 +34,7 @@ describe('basic examples', () => {
 });
 
 describe('invalid PGN', () => {
-  it('first move is invalid in the PGN', () => {
+  it.only('first move is invalid in the PGN', () => {
     // Arrange
     const pgn = '1. e5';
 
@@ -87,7 +87,7 @@ describe.only('with shapes', () => {
   })
   it('e4 field with green highlight', () => {
     // Arrange
-    const pgn = '1. e4 {[%csl Ge4]}';
+    const pgn = '1. e4 {[%csl Ge4]} *';
 
     // Act
     const moments = chessviewer(pgn);
@@ -99,7 +99,7 @@ describe.only('with shapes', () => {
 
   it('d5 & f5 fields with yellow highlight', () => {
     // Arrange
-    const pgn = '1. e4 {[%csl Yd5,Yf5]}';
+    const pgn = '1. e4 {[%csl Yd5,Yf5]} *';
 
     // Act
     const moments = chessviewer(pgn);
@@ -113,7 +113,7 @@ describe.only('with shapes', () => {
 
   it('d1-h5 diagonal with red highlight', () => {
     // Arrange
-    const pgn = '1. e4 {[%cal Rd1h5]}';
+    const pgn = '1. e4 {[%cal Rd1h5]} *';
 
     // Act
     const moments = chessviewer(pgn);
