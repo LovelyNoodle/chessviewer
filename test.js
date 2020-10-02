@@ -83,7 +83,7 @@ describe.only('with shapes', () => {
     const moments = chessviewer(pgn);
 
     // Assert
-    expect(moments[1].shapes.length).to.equal(0);
+    expect(moments[1].shapes).to.be.undefined;
   })
   it('e4 field with green highlight', () => {
     // Arrange

@@ -1,5 +1,5 @@
 const { Chess } = require("chess.js");
-const Shapes = require('./functions/shapes');
+const BuildMoveInfo = require("./functions/BuildMoveInfo");
 module.exports = (pgn) => {
     const chess=new Chess(); //here we will load our pgn
     const loaded = chess.load_pgn(pgn);
@@ -13,15 +13,10 @@ module.exports = (pgn) => {
       }
     const initial = {fen:chess.fen(),comment:chess.get_comment()}
         const game = history.map((move) => {
-        const details ={};
         chess.move(move);
-        details.move = move;
-        details.fen = chess.fen();
-        const comment = chess.get_comment();
-        details.comment = comment;
-        details.shapes= Shapes(comment);
-        return details;
+        return BuildMoveInfo(chess, move);
       });
+
       game.unshift(initial);
       return game;
  }
