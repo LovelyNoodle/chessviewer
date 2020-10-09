@@ -46,7 +46,7 @@ describe('invalid PGN', () => {
   });
 });
 
-describe('with comments', () => {
+describe.only('with comments', () => {
   it('comment after the first move', () => {
     // Arrange
     const pgn = '1. e4 {one of the most popular openings for white}';
