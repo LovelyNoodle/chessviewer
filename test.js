@@ -4,39 +4,39 @@ const expect = require('chai').expect;
 describe('basic examples', () => {
   it('basic PGN with one move', () => {
     // Arrange
-    const pgn = '1. e4';
-
-    // Act
-    const moments = chessviewer(pgn);
-
-    // Assert
-    expect(moments.length).to.equal(1);
-    expect(moments[0].move).to.equal('e4');
-    expect(moments[0].fen).to.equal(
-      'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1'
-    );
-  });
-
-  it('basic PGN with two moves', () => {
-    // Arrange
-    const pgn = '1. e4 e5';
+    const pgn = '1. e4 *';
 
     // Act
     const moments = chessviewer(pgn);
 
     // Assert
     expect(moments.length).to.equal(2);
-    expect(moments[1].move).to.equal('e5');
+    expect(moments[1].move).to.equal('e4');
     expect(moments[1].fen).to.equal(
+      'rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1'
+    );
+  });
+
+  it('basic PGN with two moves', () => {
+    // Arrange
+    const pgn = '1. e4 e5 *';
+
+    // Act
+    const moments = chessviewer(pgn);
+
+    // Assert
+    expect(moments.length).to.equal(3);
+    expect(moments[2].move).to.equal('e5');
+    expect(moments[2].fen).to.equal(
       'rnbqkbnr/pppp1ppp/8/4p3/4P3/8/PPPP1PPP/RNBQKBNR w KQkq e6 0 2'
     );
   });
 });
 
 describe('invalid PGN', () => {
-  it.only('first move is invalid in the PGN', () => {
+  it('first move is invalid in the PGN', () => {
     // Arrange
-    const pgn = '1. e5';
+    const pgn = '1. e5 *';
 
     // Act
     const moments = chessviewer(pgn);
@@ -46,10 +46,10 @@ describe('invalid PGN', () => {
   });
 });
 
-describe.only('with comments', () => {
+describe('with comments', () => {
   it('comment after the first move', () => {
     // Arrange
-    const pgn = '1. e4 {one of the most popular openings for white}';
+    const pgn = '1. e4 {one of the most popular openings for white} *';
 
     // Act
     const moments = chessviewer(pgn);
@@ -63,7 +63,7 @@ describe.only('with comments', () => {
 
   it('comment before the first move', () => {
     // Arrange
-    const pgn ='{Test} 1.e4';
+    const pgn = '{Test} 1.e4 *';
 
     //Act
     const moments = chessviewer(pgn);
@@ -74,7 +74,7 @@ describe.only('with comments', () => {
   });
 });
 
-describe.only('with shapes', () => {
+describe('with shapes', () => {
   it('returns empty when no shapes are present in a comment', () => {
     // Arrange
     const pgn = '1. e4 {no comments here} *';
@@ -84,7 +84,7 @@ describe.only('with shapes', () => {
 
     // Assert
     expect(moments[1].shapes).to.be.undefined;
-  })
+  });
   it('e4 field with green highlight', () => {
     // Arrange
     const pgn = '1. e4 {[%csl Ge4]} *';
@@ -119,7 +119,7 @@ describe.only('with shapes', () => {
     const moments = chessviewer(pgn);
 
     // Assert
-    expect(moments[1].shapes[0].brush).to.equal("red");
+    expect(moments[1].shapes[0].brush).to.equal('red');
     expect(moments[1].shapes[0].orig).to.equal('d1');
     expect(moments[1].shapes[0].dest).to.equal('h5');
   });
